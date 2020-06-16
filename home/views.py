@@ -6,6 +6,8 @@ def home(request):
     categories=Categoary.objects.all()
     if request.method == 'POST':
         categoary_id=request.POST.get("categoary_id")
+        articles=Article.objects.filter(Article_Category_id=categoary_id)
+       # return render(request, 'showArticles.html', {'articles':articles})
         return render(request, 'AddArticle.html', {'categoary_id':categoary_id})
     else:
         return render(request, 'home.html', {'categories': categories})

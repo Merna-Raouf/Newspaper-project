@@ -8,21 +8,21 @@
 
 </head>
 <body>
-<div class="container">
-{% for item in categories %}
-
-     <form method="POST" action="{% url 'home' %}">
-        {% csrf_token %}
-        <input type="submit" style="margin: 20px" class="btn btn-primary  btn-lg" name="categoary" value="{{ item.name }}">
-        <input type="hidden" name="categoary_id" value="{{item.id}}">
-    </form>
-
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    {% for item in categories %}
+  <form class="form-inline" method="POST" action="{% url 'home' %}">
+  {% csrf_token %}
+    <input type="submit" style="margin: 10px" class="btn btn-success"  name="categoary" value="{{ item.name }}">
+    <input type="hidden" name="categoary_id" value="{{item.id}}">
+  </form>
     {% endfor %}
- <form method="POST" action="{% url 'AddnewCategoary' %}">
+
+<form class="form-inline" method="POST" action="{% url 'AddnewCategoary' %}">
         {% csrf_token %}
-      <input type="submit" style="margin: 20px" class="btn btn-secondry  btn-lg" name="new" value="Add Categoary">
+      <input type="submit" style="margin-left: 440px" class="btn btn-light btn-lg" name="new" value="Add new Categoary">
  </form>
-</div>
+</nav>
+
 
 </body>
 </html>
