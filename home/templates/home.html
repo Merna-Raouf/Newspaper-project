@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container">
+{% for item in categories %}
+
+     <form method="POST" action="{% url 'home' %}">
+        {% csrf_token %}
+        <input type="submit" style="margin: 20px" class="btn btn-primary  btn-lg" name="categoary" value="{{ item.name }}">
+        <input type="hidden" name="categoary_id" value="{{item.id}}">
+    </form>
+
+    {% endfor %}
+ <form method="POST" action="{% url 'AddnewCategoary' %}">
+        {% csrf_token %}
+      <input type="submit" style="margin: 20px" class="btn btn-secondry  btn-lg" name="new" value="Add Categoary">
+ </form>
+</div>
+
+</body>
+</html>

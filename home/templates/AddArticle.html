@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Add_Article</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<div class="container">
+      <h2>Adding New Article:</h2>
+  <form method="POST" action="{% url 'AddArticle' %}">
+{% csrf_token %}
+    <div class="form-group">
+      <label>Title:</label>
+        <input type="text" class="form-control" name="title"><br/>
+    </div>
+
+    <div class="form-group">
+      <label>Description:</label>
+        <input type="text" class="form-control" name="description"><br/>
+    </div>
+
+      <div class="form-group">
+      <label>Paragraph:</label>
+        <input type="text" class="form-control" name="paragraph"><br/>
+    </div>
+
+       <div class="form-group">
+      <label>date:</label>
+        <input type="date" class="form-control" name="date"><br/>
+    </div>
+       <div class="form-group">
+      <label>Writer:</label>
+        <input type="text" class="form-control" name="writer"><br/>
+    </div>
+         <div class="form-group">
+
+        <input type="hidden" class="form-control" name="categoary_id" value={{ categoary_id }}><br/>
+    </div>
+       <div class="form-group">
+      <label>image:</label>
+        <input type="file" class="form-control" name="image">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  {% if uploaded_file_url %}
+    <p>File uploaded at: <a href="{{ ddddffsAuploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+  {% endif %}
+
+</div>
+
+</body>
+</html>
