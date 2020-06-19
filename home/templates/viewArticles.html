@@ -1,0 +1,22 @@
+
+<div class="container-fluid">
+
+  <div class="row">
+
+
+      {% for item in articles %}
+    <div class="col-sm-4" style="margin: 80px">
+
+
+        <h2 style="text-align: center">{{ item.Title}}</h2>
+         <img src="{{ item.Article_image.url }}" style="width:500px;height:400px;" >
+        <p>{{ item.Description }}</p>
+        <input type="hidden" name="id" value={{ item.id }}>
+        <input type="submit" class="btn btn-outline-secondary ml-4" name="Open" value="Open">
+
+    </div>
+      {% endfor %}
+
+
+  </div>
+</div>

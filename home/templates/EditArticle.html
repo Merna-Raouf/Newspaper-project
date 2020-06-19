@@ -15,7 +15,7 @@
 {% csrf_token %}
     <div class="form-group">
         <label for="categoaries">Choose Categoary:</label>
-         <select name="selectcategoary" id="multiselect" class="form-control" >
+         <select name="from[]" id="multiselect" class="form-control" >
         {% for item in categories %}
   <option value="{{ item.id }}">{{item.name}}</option>
   {% endfor %}
@@ -23,30 +23,31 @@
 </select>
 
     </div>
+  {% for item in article %}
   <div class="form-group">
 <label>Title:</label>
-        <input type="text" class="form-control" name="title"><br/>
+        <input type="text" class="form-control" name="title" value="{{ item.Title }}"><br/>
   </div>
     <div class="form-group">
       <label>Description:</label>
-        <input type="text" class="form-control" name="description"><br/>
+        <input type="text" class="form-control" name="description" value="{{ item.Description }}"><br/>
     </div>
 
       <div class="form-group">
       <label>Paragraph:</label>
-        <input type="text" class="form-control" name="paragraph"><br/>
+        <input type="text" class="form-control" name="paragraph" value="{{ item.text }}"><br/>
     </div>
 
        <div class="form-group">
       <label>date:</label>
-        <input type="date" class="form-control" name="date"><br/>
+        <input type="date" class="form-control" name="date" value="{{ item.date }}"><br/>
     </div>
-
+        <input type="text" class="form-control" name="categoary_id" value={{ item.Article_Category.id}}><br/>
 
 
        <div class="form-group">
       <label>image:</label>
-        <input type="file" class="form-control" name="image">
+        <input type="file" class="form-control" name="image" value="{{ item.Article_image }}">
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -55,6 +56,6 @@
 
 
 </div>
-
+{% endfor %}
 </body>
 </html>

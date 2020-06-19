@@ -8,20 +8,43 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    {% for item in categories %}
-  <form class="form-inline" method="POST" action="{% url 'home' %}">
-  {% csrf_token %}
-    <input type="submit" style="margin: 10px" class="btn btn-success"  name="categoary" value="{{ item.name }}">
-    <input type="hidden" name="categoary_id" value="{{item.id}}">
-  </form>
-    {% endfor %}
 
-<form class="form-inline" method="POST" action="{% url 'AddnewCategoary' %}">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <form class="form-inline my-2 my-lg-0">
+               <a href="{% url 'AddArticle' %}"    class="btn btn-outline-secondary ml-4">Add Article</a>
+  <a href="{% url 'logout' %}"   class="btn btn-outline-secondary ml-4">logout</a>
+          </form>
+
+      </div>
+    </div>
+  </nav>
+
+
+<div class="container-fluid">
+
+  <div class="row">
+
+{% csrf_token %}
+      {% for item in articles %}
+    <div class="col-sm-4" style="margin: 80px">
+    <form method="post" action="{% url 'Article' %}">
         {% csrf_token %}
-      <input type="submit" style="margin-left: 440px" class="btn btn-light btn-lg" name="new" value="Add new Categoary">
- </form>
-</nav>
+        <h2 style="text-align: center">{{ item.Title}}</h2>
+         <img src="{{ item.Article_image.url }}" style="width:500px;height:400px;" >
+        <p>{{ item.Description }}</p>
+        <input type="hidden" name="id" value={{ item.id }}>
+        <input type="submit" class="btn btn-outline-secondary ml-4" name="Open" value="Open">
+        <input type="submit" class="btn btn-outline-secondary ml-4" name="Edit" value="Edit">
+</form>
+    </div>
+      {% endfor %}
+
+
+  </div>
+</div>
 
 
 </body>

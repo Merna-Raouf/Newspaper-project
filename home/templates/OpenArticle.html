@@ -1,0 +1,9 @@
+{% for item in article %}
+    <div class="col-sm-4" style="margin: 80px">
+        <h2 style="text-align: center">{{ item.Title}}</h2>
+         <img src="{{ item.Article_image.url }}" style="width:800px;height:600px;align-content: center" >
+        <p>{{ item.text}}</p>
+
+
+    </div>
+      {% endfor %}
