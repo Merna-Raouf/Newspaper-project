@@ -1,49 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title></title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
     <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-          <form class="form-inline my-2 my-lg-0">
-               <a href="{% url 'AddArticle' %}"    class="btn btn-outline-secondary ml-4">Add Article</a>
-  <a href="{% url 'logout' %}"   class="btn btn-outline-secondary ml-4">logout</a>
-          </form>
+            <div class="form-inline my-2 my-lg-0">
 
-      </div>
+                <a href="{% url 'AddArticle' %}" class="btn btn-outline-secondary ml-4">Add Article</a>
+                <a href="{% url 'logout' %}" class="btn btn-outline-secondary ml-4">logout</a>
+
+            </div>
+
+        </div>
     </div>
-  </nav>
+</nav>
 
 
 <div class="container-fluid">
 
-  <div class="row">
+    <div class="row">
 
-{% csrf_token %}
-      {% for item in articles %}
-    <div class="col-sm-4" style="margin: 80px">
-    <form method="post" action="{% url 'Article' %}">
-        {% csrf_token %}
-        <h2 style="text-align: center">{{ item.Title}}</h2>
-         <img src="{{ item.Article_image.url }}" style="width:500px;height:400px;" >
-        <p>{{ item.Description }}</p>
-        <input type="hidden" name="id" value={{ item.id }}>
-        <input type="submit" class="btn btn-outline-secondary ml-4" name="Open" value="Open">
-        <input type="submit" class="btn btn-outline-secondary ml-4" name="Edit" value="Edit">
-</form>
+
+        {% for item in articles %}
+            <div class="col-lg-4">
+
+                <h2 style="text-align: center">{{ item.Title }}</h2>
+                <a href="{% url "openArticle" %}?id={{ item.id }}">
+                    <img src="{{ item.Article_image.url }}" style="width:400px;height:350px;border-radius: 10px">
+                </a>
+                <p>{{ item.Description }}</p>
+                <a href="{% url "EditArticle" %}?id={{ item.id }}" class="btn btn-outline-secondary ml-4">Edit</a>
+
+            </div>
+        {% endfor %}
+
+
     </div>
-      {% endfor %}
-
-
-  </div>
 </div>
 
 

@@ -20,7 +20,8 @@
     }
   </style>
 </head>
-<body style="background-image: url('../media/img1.jpg');background-repeat: no-repeat;background-size: cover;">
+<body style="background-image: url('../media/img2.jpg');background-repeat: no-repeat;background-size: cover;">
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
     <div class="container">
       <a class="navbar-brand">Welcome to My Site</a>
@@ -34,11 +35,27 @@
     </div>
   </nav>
 
-  <div class="container" >
-    {% block content %}
-        <a href="{% url 'viewArticle' %}" style="margin:200px auto; padding: 10px 50px ;text-align:center; display:block; width:180px;"  class="btn btn-primary">View Articles</a>
-    {% endblock %}
+ <div class="container-fluid">
+
+  <div class="row" style="margin: 10px">
+
+
+      {% for item in articles %}
+    <div class="col-lg-3"  >
+
+        <h3 style="text-align: center">{{ item.Title}}</h3>
+         <a href="{% url "openArticle" %}?id={{ item.id }}">
+         <img src="{{ item.Article_image.url }}" style="width:300px;height:200px;border-radius: 10px" ></a>
+        <p>{{ item.Description }}</p>
+
+
+
+    </div>
+      {% endfor %}
+
+
   </div>
+</div>
 
 
 </body>

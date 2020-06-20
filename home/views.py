@@ -27,7 +27,8 @@ class SecretPage(LoginRequiredMixin, TemplateView):
 
 
 def homepage(request):
-    return render(request, 'base.html')
+    articles=Article.objects.all()
+    return render(request, 'base.html',{'articles':articles})
 
 
 def home(request):
@@ -74,15 +75,35 @@ def add_aricle(request):
     else:
         return render(request, 'AddArticle.html', {'categories': categories})
 
+def Edit_article(request):
+    categories = Categoary.objects.all()
+    if request.method == 'POST':
+        article_id=request.POST.get('id')
+        article=Article.objects.get(id=article_id)
+        article.Title= request.POST.get('title')
+        article.Description = request.POST.get('description')
+        article.text = request.POST.get('paragraph')
+        article.date = request.POST.get('date')
+        if len(request.FILES) != 0:
+            article.Article_image=request.FILES["image"]
+        article.Article_Category_id = request.POST['selectcategoary']
+        article.user = request.user
+        article.save()
+        articles = Article.objects.filter(user=request.user)
+        return render(request, 'home.html', {'Categoary_id': article.Article_Category_id, 'categories': categories, 'articles': articles})
+    else:
+        article_id = request.GET.get('id')
+        article = Article.objects.filter(id=article_id)
+        return render(request, 'EditArticle.html', {'categories': categories,'article':article})
+
 
 def open_aricle(request):
-    article_id = request.POST.get('id')
+    article_id = request.GET.get('id')
     article = Article.objects.filter(id=article_id)
-    if 'Open' in request.POST:
-        return render(request, 'OpenArticle.html',{'article':article})
+    return render(request, 'OpenArticle.html',{'article':article})
 
-    elif 'Edit' in request.POST:
-        return render(request, 'EditArticle.html',{'article':article})
+    #elif 'Edit' in request.POST:
+     #   return render(request, 'EditArticle.html',{'article':article,'categoaries':categoaries})
 
 
 def view_aricle(request):

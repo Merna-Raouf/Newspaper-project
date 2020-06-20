@@ -10,17 +10,21 @@
 <body>
 
 <div class="container">
-      <h2>Adding New Article:</h2>
-  <form method="POST" enctype="multipart/form-data" action="{% url 'AddArticle' %}">
+      <h2>Editing Article:</h2>
+  <form method="POST" enctype="multipart/form-data" action="{% url 'EditArticle' %}">
 {% csrf_token %}
-    <div class="form-group">
-        <label for="categoaries">Choose Categoary:</label>
-         <select name="from[]" id="multiselect" class="form-control" >
+   <div class="form-group">
+         <select name="selectcategoary" id="multiselect" class="form-control" >
         {% for item in categories %}
-  <option value="{{ item.id }}">{{item.name}}</option>
+            {% for art in article %}
+            <option value="{{ item.id }}"
+       {% if art.Article_Category.id == item.id %} selected {% endif %}>
+                {{item.name}}
+                </option>
   {% endfor %}
-    <option value="new">Add new Categoary</option>
+          {% endfor %}
 </select>
+
 
     </div>
   {% for item in article %}
@@ -40,15 +44,16 @@
 
        <div class="form-group">
       <label>date:</label>
-        <input type="date" class="form-control" name="date" value="{{ item.date }}"><br/>
+        <input type="date" class="form-control" name="date" value="{{ item.date | date:'yy-m-d' }}"><br/>
     </div>
-        <input type="text" class="form-control" name="categoary_id" value={{ item.Article_Category.id}}><br/>
 
 
        <div class="form-group">
       <label>image:</label>
-        <input type="file" class="form-control" name="image" value="{{ item.Article_image }}">
+             <img src="{{ item.Article_image.url }}" style="width:300px;height:200px;border-radius: 10px">
+        <input type="file" class="form-control" name="image" Files="{{ item.Article_image }}">
     </div>
+      <input type="hidden" name="id" value="{{ item.id }}">
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

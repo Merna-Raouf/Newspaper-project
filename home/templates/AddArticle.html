@@ -13,16 +13,16 @@
       <h2>Adding New Article:</h2>
   <form method="POST" enctype="multipart/form-data" action="{% url 'AddArticle' %}">
 {% csrf_token %}
-    <div class="form-group">
-        <label for="categoaries">Choose Categoary:</label>
-         <select name="selectcategoary" id="multiselect" class="form-control" >
-        {% for item in categories %}
-  <option value="{{ item.id }}">{{item.name}}</option>
-  {% endfor %}
-    <option value="new">Add new Categoary</option>
-</select>
+      <div class="form-group">
+          <label for="categoaries">Choose Categoary:</label>
+          <select name="selectcategoary" id="multiselect" class="form-control">
+              {% for item in categories %}
+                  <option value="{{ item.id }}">{{ item.name }}</option>
+              {% endfor %}
+              <option value="new">Add new Categoary</option>
+          </select>
 
-    </div>
+      </div>
   <div class="form-group">
 <label>Title:</label>
         <input type="text" class="form-control" name="title"><br/>

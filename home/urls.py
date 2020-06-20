@@ -12,7 +12,8 @@ url(r'^logout/$', views.homepage, name='homepage'),
     url('^signup$', views.signup, name='signup'),
     url('', include('django.contrib.auth.urls')),
     url('admin/', admin.site.urls),
-    url('^Article$', views.open_aricle, name='Article'),
+    url('^openArticle$', views.open_aricle, name='openArticle'),
+    url('^EditArticle$', views.Edit_article, name='EditArticle'),
     url('^viewArticle$', views.view_aricle, name='viewArticle'),
 
 ]
