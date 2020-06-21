@@ -53,7 +53,9 @@ def add_Categoary(request):
         categoary.name=request.POST.get("name")
 
         categoary.save()
-        return render(request, 'AddArticle.html', {'categoary_id':categoary.id})
+        articles = Article.objects.filter(user=request.user)
+        user = request.user
+        return render(request, 'home.html',{'articles':articles,'user':user})
     else:
         return render(request, 'AddCategoary.html')
 
