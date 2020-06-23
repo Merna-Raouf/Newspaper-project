@@ -1,3 +1,4 @@
+{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,10 +15,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <div class="form-inline my-2 my-lg-0">
-                {% if perms.home.Can_add_categoary %}
-                <a href="{% url 'AddCategoary' %}" class="btn btn-outline-secondary ml-4">Add Categoary</a>
+                {% if user|check_permission:'add_categoary' %}
+                    <a href="{% url 'AddCategoary' %}" class="btn btn-outline-secondary ml-4">Add Categoary</a>
                 {% endif %}
                 <a href="{% url 'AddArticle' %}" class="btn btn-outline-secondary ml-4">Add Article</a>
+
                 <a href="{% url 'logout' %}" class="btn btn-outline-secondary ml-4">logout</a>
 
             </div>

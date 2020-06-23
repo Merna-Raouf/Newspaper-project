@@ -14,6 +14,8 @@ url(r'^logout/$', views.homepage, name='homepage'),
     url('admin/', admin.site.urls),
     url('^openArticle$', views.open_aricle, name='openArticle'),
     url('^EditArticle$', views.Edit_article, name='EditArticle'),
-    url('^viewArticle$', views.view_aricle, name='viewArticle'),
+    url('^Categoaries$', views.Categoaries, name='Categoaries'),
+    url('^viewarticles$', views.viewarticles, name='viewarticles'),
+
 
 ]

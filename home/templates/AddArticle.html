@@ -8,14 +8,22 @@
 
 </head>
 <body>
-
+<script type="text/javascript">
+    function yesnoCheck(that) {
+    if ( that.value === "new") {
+        document.getElementById("ifYes").style.display = "block";
+    } else {
+        document.getElementById("ifYes").style.display = "none";
+    }
+}
+</script>
 <div class="container">
       <h2>Adding New Article:</h2>
   <form method="POST" enctype="multipart/form-data" action="{% url 'AddArticle' %}">
 {% csrf_token %}
       <div class="form-group">
           <label for="categoaries">Choose Categoary:</label>
-          <select name="selectcategoary" id="multiselect" class="form-control">
+          <select name="selectcategoary" id="multiselect" class="form-control"  onchange="yesnoCheck(this);">
               {% for item in categories %}
                   <option value="{{ item.id }}">{{ item.name }}</option>
               {% endfor %}
@@ -23,7 +31,13 @@
           </select>
 
       </div>
+
+     <div class="form-group" id="ifYes" style="display: none;">
+    <label>New Categoary name :</label>
+         <input type="text" id="categoary" name="categoary" class="form-control"><br />
+</div>
   <div class="form-group">
+
 <label>Title:</label>
         <input type="text" class="form-control" name="title"><br/>
   </div>

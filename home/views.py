@@ -16,7 +16,6 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-
 @login_required
 def secret_page(request):
     return render(request, 'secret_page.html')
@@ -42,9 +41,14 @@ def home(request):
         articles=Article.objects.filter(user=request.user)
         return render(request, 'home.html', {'categories': categories,'articles':articles})
 
-def addnewCategoary(request):
-    if request.method == 'POST':
-        return render(request, 'AddCategoary.html')
+
+
+def addnewCategoary(newCategoary):
+    categoary = Categoary()
+    categoary.name = newCategoary
+    categoary.save()
+    categoary_id=Categoary.objects.filter(name=newCategoary)
+    return categoary_id
 
 
 def add_Categoary(request):
@@ -59,23 +63,29 @@ def add_Categoary(request):
     else:
         return render(request, 'AddCategoary.html')
 
+
 def add_aricle(request):
     categories = Categoary.objects.all()
     if request.method == 'POST':
-
         article=Article()
         article.Title = request.POST.get('title')
         article.Description=request.POST.get('description')
         article.text = request.POST.get('paragraph')
         article.date = request.POST.get('date')
         article.Article_image=request.FILES["image"]
-        article.Article_Category_id=request.POST['selectcategoary']
+        if request.POST['selectcategoary']=="new":
+            cat=addnewCategoary(request.POST.get("categoary"))
+            for item in cat:
+                article.Article_Category_id = item.id
+        else:
+             article.Article_Category_id=request.POST['selectcategoary']
         article.user=request.user
         article.save()
         articles = Article.objects.filter(user=request.user)
         return render(request, 'home.html', {'Categoary_id': article.Article_Category_id,'categories':categories,'articles':articles})
     else:
         return render(request, 'AddArticle.html', {'categories': categories})
+
 
 def Edit_article(request):
     categories = Categoary.objects.all()
@@ -104,10 +114,12 @@ def open_aricle(request):
     article = Article.objects.filter(id=article_id)
     return render(request, 'OpenArticle.html',{'article':article})
 
-    #elif 'Edit' in request.POST:
-     #   return render(request, 'EditArticle.html',{'article':article,'categoaries':categoaries})
 
+def Categoaries(request):
+    categoaries=Categoary.objects.all()
+    return render(request,'viewcategoaries.html',{'categoaries':categoaries})
 
-def view_aricle(request):
-    articles=Article.objects.all()
-    return render(request,'viewArticles.html',{'articles':articles})
+def viewarticles(request):
+    categoary_id = request.GET.get('id')
+    articles = Article.objects.filter(Article_Category_id=categoary_id)
+    return render(request,'OpenArticle.html',{'article':articles})
